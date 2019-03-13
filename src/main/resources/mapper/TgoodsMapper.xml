@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.baiyougou.dao.TgoodsMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.baiyougou.entity.Tgoods">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="goodsName" jdbcType="VARCHAR" property="goodsname" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="bargains" jdbcType="INTEGER" property="bargains" />
+    <result column="typeId" jdbcType="INTEGER" property="typeid" />
+    <result column="imgPath" jdbcType="VARCHAR" property="imgpath" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="sales" jdbcType="INTEGER" property="sales" />
+    <result column="details" jdbcType="VARCHAR" property="details" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gid, goodsName, price, bargains, typeId, imgPath, country, comment, sales, details
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_goods
+    where gid = #{gid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+     select * from t_goods g inner join
+    t_goodstype gp on g.typeId=gp.typeId
+    where gp.pid=1
+  </select>
+  <select id="selectByPrice" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+     select * from t_goods g inner join
+    t_goodstype gp on g.typeId=gp.typeId
+    where gp.pid=1 order by price desc
+  </select>
+  <select id="selectByPrice1" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+     select * from t_goods g inner join
+    t_goodstype gp on g.typeId=gp.typeId
+    where gp.pid=1 order by price asc
+  </select>
+  <select id="selectBySales" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+     select * from t_goods g inner join
+    t_goodstype gp on g.typeId=gp.typeId
+    where gp.pid=1 order by sales desc
+  </select>
+  <select id="selectByCollect" resultMap="BaseResultMap">
+     select * from t_goods g inner JOIN
+      t_collect c on g.gid=c.gid
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_goods
+    where gid = #{gid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.baiyougou.entity.Tgoods">
+    insert into t_goods (gid, goodsName, price, 
+      bargains, typeId, imgPath, 
+      country, comment, sales, 
+      details)
+    values (#{gid,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+      #{bargains,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, #{imgpath,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{sales,jdbcType=INTEGER}, 
+      #{details,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.baiyougou.entity.Tgoods">
+    insert into t_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="goodsname != null">
+        goodsName,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="bargains != null">
+        bargains,
+      </if>
+      <if test="typeid != null">
+        typeId,
+      </if>
+      <if test="imgpath != null">
+        imgPath,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+      <if test="sales != null">
+        sales,
+      </if>
+      <if test="details != null">
+        details,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="bargains != null">
+        #{bargains,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="imgpath != null">
+        #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="sales != null">
+        #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.baiyougou.entity.Tgoods">
+    update t_goods
+    <set>
+      <if test="goodsname != null">
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="bargains != null">
+        bargains = #{bargains,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null">
+        typeId = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="imgpath != null">
+        imgPath = #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="sales != null">
+        sales = #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="details != null">
+        details = #{details,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.baiyougou.entity.Tgoods">
+    update t_goods
+    set goodsName = #{goodsname,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      bargains = #{bargains,jdbcType=INTEGER},
+      typeId = #{typeid,jdbcType=INTEGER},
+      imgPath = #{imgpath,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      sales = #{sales,jdbcType=INTEGER},
+      details = #{details,jdbcType=VARCHAR}
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+</mapper>

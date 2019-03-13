@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.baiyougou.dao.TorderMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.baiyougou.entity.Torder">
+    <id column="oid" jdbcType="INTEGER" property="oid" />
+    <result column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="totalPrice" jdbcType="DOUBLE" property="totalprice" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="orderNum" jdbcType="VARCHAR" property="ordernum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, gid, totalPrice, state, uid, num, comment, orderNum
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_order
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.baiyougou.entity.Torder">
+    insert into t_order (oid, gid, totalPrice, 
+      state, uid, num, comment, 
+      orderNum)
+    values (#{oid,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}, #{totalprice,jdbcType=DOUBLE}, 
+      #{state,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{ordernum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.baiyougou.entity.Torder">
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="totalprice != null">
+        totalPrice,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+      <if test="ordernum != null">
+        orderNum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null">
+        #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernum != null">
+        #{ordernum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.baiyougou.entity.Torder">
+    update t_order
+    <set>
+      <if test="gid != null">
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null">
+        totalPrice = #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernum != null">
+        orderNum = #{ordernum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.baiyougou.entity.Torder">
+    update t_order
+    set gid = #{gid,jdbcType=INTEGER},
+      totalPrice = #{totalprice,jdbcType=DOUBLE},
+      state = #{state,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      orderNum = #{ordernum,jdbcType=VARCHAR}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>
